@@ -108,3 +108,5 @@ env
 .idea
 #generated js
 _*.js
+*.bin
+*.txt

@@ -3,11 +3,10 @@ let getinputstatePtr = xeniabase.add(0x2C7DDC);
 var callcount = -1;
 var inputdata = {};
 send("ready");
-let inp_recv = recv("inputs",function(msg){
-    console.log("WAITING PLEASE")
+let rec_recv = recv("record",function(msg){
     inputdata = msg.data;
 });
-inp_recv.wait();
+rec_recv.wait();
 console.log("Done Waiting");
 var inp_index = 0;
 // @ts-ignore
