@@ -83,6 +83,7 @@ def inputs_from_taseditor_script(fn):
     scr_lines = open(fn).readlines()
     states = []
     c_state = XInputGamepadStruct()
+    c_frame = 0
     for l in scr_lines:
         lineargs = l.split(" ")
         if len(lineargs) == 4:
@@ -136,7 +137,7 @@ def inputs_from_recording(fn):
 if __name__ == "__main__":
 
     if playback:
-        input_fn = "test1.txt"
+        input_fn = "m20_nogems.txt"
         inputs = inputs_from_taseditor_script(input_fn)
 
 

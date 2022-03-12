@@ -1,4 +1,4 @@
-let getinputstatePtrSdl = Module.getBaseAddress("xenia.exe").add(0x1DDE50);
+    let getinputstatePtrSdl = Module.getBaseAddress("xenia.exe").add(0x1DDE50);
 var stateptr : NativePointer;
 var keepState = false;
 var callcount = 0;
@@ -59,21 +59,24 @@ if(isRecord) {
 } else {
     console.log("Playing back");
     var limit = Object.keys(inputdata).length;
+
     Interceptor.attach(getinputstatePtrSdl,{
         onEnter: function(){
-
-            //@ts-ignore
-            if(this.context.rdx.toInt32() == 0){
-                keepState = true;
-                if(callcount >= limit){
+            if(callcount >= limit) {
                 Interceptor.detachAll();
                 console.log("Playback Done");
                 send("stop");
                 return;
             }
+            //@ts-ignore
+            if(this.context.rdx.toInt32() == 0){
+                keepState = true;
                 //@ts-ignore
                 stateptr = this.context.r8;
-            } else{
+            }
+
+
+            else{
                 keepState = false;
             }
         }, onLeave: function(){
