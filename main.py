@@ -9,6 +9,7 @@ stick_re = re.compile(r"(L|R)STICK{([\d]+),([\d]+)}")
 MAX_MAGNITUDE = 100
 recorded_states = b''
 playback = True
+OUT_FN = "recording.bin"
 def on_message(msg,data):
     global recorded_states
     print(msg)
@@ -22,7 +23,7 @@ def on_message(msg,data):
 
     if msg.get('payload') == "stop":
         if not playback:
-            open("rec2.bin",'wb').write(recorded_states)
+            open(OUT_FN,'wb').write(recorded_states)
         sys.exit(0)
 
 
