@@ -147,7 +147,7 @@ if __name__ == "__main__":
     script_text = open("_script.js").read()
     bytecode = sys_session.compile_script(name="tas-script", source=script_text)
 
-    session = frida.attach("xenia.exe")
+    session = frida.attach("xenia_canary.exe")
     script = session.create_script_from_bytes(bytecode)
     script.on("message", on_message)
     if playback:
