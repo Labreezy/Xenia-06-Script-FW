@@ -6,10 +6,10 @@
   "main": "script.ts",
   "scripts": {
     "prepare": "npm run build",
-    "build": "frida-compile record.ts _script.js -c",
+    "build": "frida-compile record.ts -o _script.js -c",
     "watch": "frida-compile record.ts -o _script.js -w"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/frida-gum": "^17.1.0",
     "@types/node": "^16.4.8",
     "frida-compile": "^10.0.0"

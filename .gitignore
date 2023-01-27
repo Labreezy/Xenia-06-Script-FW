@@ -106,7 +106,6 @@ dist
 env
 *.pyc
 .idea
-#generated js
-_*.js
+#generated things
 *.bin
 *.txt

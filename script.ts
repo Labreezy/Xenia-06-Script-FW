@@ -1,5 +1,5 @@
 let xeniabase = Module.getBaseAddress("xenia.exe");
-let getinputstatePtr = xeniabase.add(0x2C7DDC);
+let getinputstatePtr = xeniabase.add(0x2C7DDC); //find me pls
 var callcount = -1;
 var inputdata = {};
 send("ready");

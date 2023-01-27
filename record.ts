@@ -1,4 +1,4 @@
-    let getinputstatePtrSdl = Module.getBaseAddress("xenia.exe").add(0x1DDE50);
+let getinputstatePtrSdl = Module.getBaseAddress("xenia_canary.exe").add(0x29BAE0); //48 89 5C 24 08 48 89 6C 24 18 56 57 41 56 48 83 EC 70
 var stateptr : NativePointer;
 var keepState = false;
 var callcount = 0;
