@@ -91,6 +91,8 @@ def inputs_from_taseditor_script(fn):
             frame, btns, ls, rs = lineargs
         else:
             return states
+        while len(states) < int(frame):
+            states.append([0]*GAMEPAD_STRUCT_SZ)
         if btns != "NONE":
             for btn in btns.split(";"):
                 if "ZL" in btn:
@@ -138,7 +140,7 @@ def inputs_from_recording(fn):
 if __name__ == "__main__":
 
     if playback:
-        input_fn = "m20_nogems.txt"
+        input_fn = "press_start.txt"
         inputs = inputs_from_taseditor_script(input_fn)
 
 

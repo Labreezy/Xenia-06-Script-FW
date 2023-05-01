@@ -1,4 +1,4 @@
-let getinputstatePtrSdl = Module.getBaseAddress("xenia_canary.exe").add(0x29BAE0); //48 89 5C 24 08 48 89 6C 24 18 56 57 41 56 48 83 EC 70
+let getinputstatePtrSdl = Module.getBaseAddress("xenia_canary.exe").add(0xAFBA60); //xe::hid::InputSystem::GetState
 var stateptr : NativePointer;
 var keepState = false;
 var callcount = 0;
@@ -21,15 +21,18 @@ let recordPlayBack = recv(function(msg){
 });
 recordPlayBack.wait();
 if(isRecord) {
+var dumped = false;
     Interceptor.attach(getinputstatePtrSdl, {
         onEnter: function (args) {
 
             //@ts-ignore
-            if (this.context.rdx.toInt32() == 0) {
+             var user_index = args[1].toInt32();
+            if (user_index == 0) {
 
                 keepState = true;
+
                 //@ts-ignore
-                stateptr = this.context.r8;
+                stateptr = args[2];
                 callcount += 1
             } else if (callcount < 1200000) {
                 keepState = false;
@@ -59,25 +62,31 @@ if(isRecord) {
 } else {
     console.log("Playing back");
     var limit = Object.keys(inputdata).length;
-
+    console.log("Limit: " + limit);
     Interceptor.attach(getinputstatePtrSdl,{
-        onEnter: function(){
+        onEnter: function(args){
             if(callcount >= limit) {
                 Interceptor.detachAll();
                 console.log("Playback Done");
                 send("stop");
                 return;
             }
+
+
             //@ts-ignore
-            if(this.context.rdx.toInt32() == 0){
+            var user_index = args[1].toInt32();
+
+            if (user_index == 0) {
+
                 keepState = true;
                 //@ts-ignore
-                stateptr = this.context.r8;
-            }
+                stateptr = args[2];
+                }
 
 
             else{
                 keepState = false;
+
             }
         }, onLeave: function(){
             if(keepState) {
